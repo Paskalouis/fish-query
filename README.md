@@ -6,22 +6,23 @@ Built using ES6 Class.
 
 ## Installation
 NPM:  
-`npm install fish-query`
+```> npm install fish-query```
 
 Yarn:  
-`yarn add fish-query`
+```> yarn add fish-query```
 
 ## Usage
+```javascript
+const QueryBuilder = require('fish-query');
 
-    const QueryBuilder = require('fish-query');
+const queryClass = new QueryBuilder();
 
-    const queryClass = new QueryBuilder();
-
-    let queryString = queryClass
-                        .addSelect('firstName')
-                        .setFirstTable('user')
-                        .generateQuery();
-    console.log(queryString);
+let queryString = queryClass
+                    .addSelect('firstName')
+                    .setFirstTable('user')
+                    .generateQuery();
+console.log(queryString);
+```
 Output should be `SELECT firstName from user;`
 
 ## Method
@@ -72,9 +73,12 @@ Parameter:
 orderBy: Object with property: tableName, columnName  
 orderType: 'ASC', 'DESC'
 
+### > **generateQuery**
+Generate the Query String after setting up the QueryBuilder instance.
+
 ## Tests
 
-  `npm test`
+```> npm test```
 
 ## Contributing
 
