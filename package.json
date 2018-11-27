@@ -1,0 +1,19 @@
+{
+  "name": "fish-query",
+  "version": "0.1.0",
+  "description": "Simple query string builder",
+  "main": "index.js",
+  "repository": "https://github.com/Paskalouis/fish-query.git",
+  "author": "Paskalouis <recoganjen@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
+}
