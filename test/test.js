@@ -13,7 +13,18 @@ describe('Query String Builder', function () {
         expect(queryString).to.equal(`SELECT firstName FROM user;`);
     });
 
-    it('Test 2. Join with Where and Order By', function () {
+    it('Test 2. Simple Select with Multiple column', function () {
+        let queryClass = new QueryBuilder;
+        let queryString = queryClass
+            .addSelect('firstName')
+            .addSelect('lastName')
+            .addSelect('age')
+            .setFirstTable('user')
+            .generateQuery();
+        expect(queryString).to.equal(`SELECT firstName, lastName, age FROM user;`);
+    });
+
+    it('Test 3. Join with Where and Order By', function () {
         let queryClass = new QueryBuilder;
         let queryString = queryClass
                             .addSelect({
