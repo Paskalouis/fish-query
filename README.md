@@ -1,6 +1,9 @@
 Fish Query
 =========
 
+[![Build Status](https://travis-ci.org/Paskalouis/fish-query.svg?branch=master)](https://travis-ci.org/Paskalouis/fish-query)
+[![Coverage Status](https://coveralls.io/repos/github/Paskalouis/fish-query/badge.svg?branch=master)](https://coveralls.io/github/Paskalouis/fish-query?branch=master)
+
 Super simple query string builder. Currently only supports SELECT and cater to PostgreSQL query format.  
 Built using ES6 Class.
 
