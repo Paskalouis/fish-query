@@ -50,7 +50,7 @@ Parameter:
 2. Object with property: tableName, alias (will be formatted to PostgreSQL accepted format)
 
 ### > **joinTable**
-Table name specified on FROM  
+Join the tables
 Parameter Object:
 1. joinType: 'FULL JOIN', 'INNER JOIN', etc
 2. firstTable: new table that wants to be joined
