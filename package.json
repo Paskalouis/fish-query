@@ -1,6 +1,6 @@
 {
   "name": "fish-query",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Simple query string builder",
   "main": "index.js",
   "repository": "https://github.com/Paskalouis/fish-query.git",
