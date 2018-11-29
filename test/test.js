@@ -59,4 +59,28 @@ describe('Query String Builder', function () {
                             .generateQuery();
         expect(queryString).to.equal(`SELECT user."firstName" FROM user FULL JOIN country ON country."country" = user."id" WHERE user."firstName" = 'Agung' ORDER BY user."firstName" ASC;`);
     });
+
+    it('Test 4. with table alias', function () {
+        let queryClass = new QueryBuilder;
+        let queryString = queryClass
+                            .addSelect({
+                                tableName: 'user',
+                                columnName: 'firstName'
+                            })
+                            .setFirstTable({
+                                tableName: 'user',
+                                tableAlias: 'a'
+                            })
+                            .joinTable({
+                                joinType: 'FULL JOIN',
+                                firstTable: 'country',
+                                firstTableAlias: 'b',
+                                secondTable: 'user',
+                                secondTableAlias: 'a',
+                                firstKey: 'country',
+                                secondKey: 'id'
+                            })
+                            .generateQuery();
+        expect(queryString).to.equal(`SELECT user."firstName" FROM user a FULL JOIN country b ON b."country" = a."id";`);
+    });
 });

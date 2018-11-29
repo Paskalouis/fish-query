@@ -57,9 +57,13 @@ Join the tables
 Parameter Object:
 1. joinType: 'FULL JOIN', 'INNER JOIN', etc
 2. firstTable: new table that wants to be joined
-3. firstKey: the key that wants to be connected to second table
-4. secondTable: other table that wants to be compared with first table
-5. secondKey: the key that wants to be connected to first table
+3. firstTableAlias: alias of the new table (optional)
+4. firstKey: the key that wants to be connected to second table
+5. secondTable: other table that wants to be compared with first table
+6. secondTableAlias: other table alias (optional)
+7. secondKey: the key that wants to be connected to first table
+
+Alias will be prioritized when comparing
 
 ### > **addWhere**
 Add where condition

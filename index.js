@@ -81,7 +81,7 @@ class QueryBuilder {
 
         queryString += `FROM ${tableString} `;
         this.fromField.forEach(table => {
-            queryString += `${table.joinType} ${table.firstTable} ${table.firstTableAlias ? table.firstTableAlias : ''} ON ${table.firstTable}."${table.firstKey}" = ${table.secondTable}."${table.secondKey}" `;
+            queryString += `${table.joinType} ${table.firstTable} ${table.firstTableAlias ? table.firstTableAlias : ''} ON ${table.firstTableAlias ? table.firstTableAlias : table.firstTable}."${table.firstKey}" = ${table.secondTableAlias ? table.secondTableAlias : table.secondTable}."${table.secondKey}" `;
         });
 
         if (this.whereField.length) {
