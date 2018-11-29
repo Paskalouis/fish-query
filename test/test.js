@@ -124,4 +124,17 @@ describe('Query String Builder', function () {
                             .generateQuery();
         expect(queryString).to.equal(`SELECT a."firstName", b."countryName", c."continentName" FROM user a FULL JOIN country b ON b."id" = a."country" FULL JOIN continent c ON c."id" = b."continent";`);
     });
+
+    it('Test 6. Simple Select with limit and offset', function () {
+        let queryClass = new QueryBuilder;
+        let queryString = queryClass
+            .addSelect('firstName')
+            .addSelect('lastName')
+            .addSelect('age')
+            .setFirstTable('user')
+            .addLimit(10)
+            .addOffset(20)
+            .generateQuery();
+        expect(queryString).to.equal(`SELECT firstName, lastName, age FROM user LIMIT 10 OFFSET 20;`);
+    });
 });

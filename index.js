@@ -5,6 +5,8 @@ class QueryBuilder {
         this.whereField = [];
         this.orderField = [];
         this.firstTable = '';
+        this.limit = null;
+        this.offset = null;
     }
 
     addSelect(value) {
@@ -31,6 +33,16 @@ class QueryBuilder {
 
     addOrder(value) {
         this.orderField.push(value);
+        return this;
+    }
+
+    addLimit(value) {
+        this.limit = value;
+        return this;
+    }
+
+    addOffset(value) {
+        this.offset = value;
         return this;
     }
 
@@ -124,6 +136,11 @@ class QueryBuilder {
                     queryString += `${orderString}, `;
                 }
             });
+        }
+
+        if (this.limit && this.offset) {
+            queryString += `LIMIT ${this.limit} `;
+            if (this.offset) queryString += `OFFSET ${this.offset} `;
         }
 
         queryString = queryString.trim();
