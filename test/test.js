@@ -64,7 +64,7 @@ describe('Query String Builder', function () {
         let queryClass = new QueryBuilder;
         let queryString = queryClass
                             .addSelect({
-                                tableName: 'user',
+                                tableName: 'a',
                                 columnName: 'firstName'
                             })
                             .setFirstTable({
@@ -77,10 +77,51 @@ describe('Query String Builder', function () {
                                 firstTableAlias: 'b',
                                 secondTable: 'user',
                                 secondTableAlias: 'a',
-                                firstKey: 'country',
-                                secondKey: 'id'
+                                firstKey: 'id',
+                                secondKey: 'country'
                             })
                             .generateQuery();
-        expect(queryString).to.equal(`SELECT user."firstName" FROM user a FULL JOIN country b ON b."country" = a."id";`);
+        expect(queryString).to.equal(`SELECT a."firstName" FROM user a FULL JOIN country b ON b."id" = a."country";`);
+    });
+
+    it('Test 5. Double join', function () {
+        let queryClass = new QueryBuilder;
+        let queryString = queryClass
+                            .addSelect({
+                                tableName: 'a',
+                                columnName: 'firstName'
+                            })
+                            .addSelect({
+                                tableName: 'b',
+                                columnName: 'countryName'
+                            })
+                            .addSelect({
+                                tableName: 'c',
+                                columnName: 'continentName'
+                            })
+                            .setFirstTable({
+                                tableName: 'user',
+                                tableAlias: 'a'
+                            })
+                            .joinTable({
+                                joinType: 'FULL JOIN',
+                                firstTable: 'country',
+                                firstTableAlias: 'b',
+                                secondTable: 'user',
+                                secondTableAlias: 'a',
+                                firstKey: 'id',
+                                secondKey: 'country'
+                            })
+                            .joinTable({
+                                joinType: 'FULL JOIN',
+                                firstTable: 'continent',
+                                firstTableAlias: 'c',
+                                secondTable: 'country',
+                                secondTableAlias: 'b',
+                                firstKey: 'id',
+                                secondKey: 'continent'
+                            })
+                            .generateQuery();
+        expect(queryString).to.equal(`SELECT a."firstName", b."countryName", c."continentName" FROM user a FULL JOIN country b ON b."id" = a."country" FULL JOIN continent c ON c."id" = b."continent";`);
     });
 });
