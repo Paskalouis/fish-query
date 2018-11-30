@@ -67,7 +67,8 @@ class QueryBuilder {
                     selectString = select;
                 }
                 else if (typeof select === 'object') {
-                    selectString = `${select.tableName}."${select.columnName}"`
+                    selectString = `${select.tableName}."${select.columnName}"`;
+                    if (select.columnAlias) selectString += ` AS ${select.columnAlias}`;
                 }
 
                 if (index === this.selectField.length - 1) {

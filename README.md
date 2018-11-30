@@ -34,7 +34,7 @@ Output should be `SELECT firstName from user;`
 Add the select column on query  
 Parameter:
 1. String. e.g. : user
-2. Object with property: tableName, columnName (will be formatted to PostgreSQL accepted format)
+2. Object with property: tableName, columnName, columnAlias (will be formatted to PostgreSQL accepted format)
 
 ### > **addMultipleSelect**
 Add multiple select column on query  

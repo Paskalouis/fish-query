@@ -137,4 +137,19 @@ describe('Query String Builder', function () {
             .generateQuery();
         expect(queryString).to.equal(`SELECT firstName, lastName, age FROM user LIMIT 10 OFFSET 20;`);
     });
+
+    it('Test 7. Simple Select with column alias', function () {
+        let queryClass = new QueryBuilder;
+        let queryString = queryClass
+            .addSelect({
+                tableName: 'user',
+                columnName: 'firstName',
+                columnAlias: 'user_first_name'
+            })
+            .addSelect('lastName')
+            .addSelect('age')
+            .setFirstTable('user')
+            .generateQuery();
+        expect(queryString).to.equal(`SELECT user."firstName" AS user_first_name, lastName, age FROM user;`);
+    });
 });
