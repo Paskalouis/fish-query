@@ -72,6 +72,8 @@ Parameter Object:
 2. operator: '=', etc
 3. value: value to be compared
 
+Currently only supports AND for all the where clause.
+
 ### > **addOrder**
 Add Order By
 Parameter:

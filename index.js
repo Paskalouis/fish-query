@@ -113,7 +113,7 @@ class QueryBuilder {
                     queryString += `${whereString} ${where.operator} '${where.value}' `;
                 }
                 else {
-                    queryString += `${whereString} ${where.operator} '${where.value}', `;
+                    queryString += `${whereString} ${where.operator} '${where.value}' AND `;
                 }
             });
         }

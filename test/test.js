@@ -152,4 +152,23 @@ describe('Query String Builder', function () {
             .generateQuery();
         expect(queryString).to.equal(`SELECT user."firstName" AS user_first_name, lastName, age FROM user;`);
     });
+
+    it('Test 8. Test with multiple where', function () {
+        let queryClass = new QueryBuilder;
+        let queryString = queryClass
+            .addSelect('firstName')
+            .setFirstTable('user')
+            .addWhere({
+                column: 'firstName',
+                operator: '=',
+                value: 'Agung'
+            })
+            .addWhere({
+                column: 'lastName',
+                operator: '=',
+                value: 'Hercules'
+            })
+            .generateQuery();
+        expect(queryString).to.equal(`SELECT firstName FROM user WHERE firstName = 'Agung' AND lastName = 'Hercules';`);
+    });
 });
