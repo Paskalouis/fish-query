@@ -150,7 +150,7 @@ describe('Query String Builder', function () {
             .addSelect('age')
             .setFirstTable('user')
             .generateQuery();
-        expect(queryString).to.equal(`SELECT user."firstName" AS user_first_name, lastName, age FROM user;`);
+        expect(queryString).to.equal(`SELECT user."firstName" AS "user_first_name", lastName, age FROM user;`);
     });
 
     it('Test 8. Test with multiple where', function () {
