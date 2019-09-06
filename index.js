@@ -1,6 +1,6 @@
 class QueryBuilder {
     constructor(config) {
-        let { datastore } = config;
+        let { datastore } = config ? config : { datastore: 'postgresql' } ;
 
         this.selectField = [];
         this.fromField = [];
@@ -143,7 +143,7 @@ class QueryBuilder {
         }
 
         if (this.limit && this.offset) {
-            if (this.datastore === 'postgresql' || !this.datastore) {
+            if (this.datastore === 'postgresql') {
                 queryString += `LIMIT ${this.limit} `;
                 queryString += `OFFSET ${this.offset} `;
             }
