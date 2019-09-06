@@ -1,5 +1,7 @@
 class QueryBuilder {
-    constructor() {
+    constructor(config) {
+        let { datastore } = config ? config : { datastore: 'postgresql' } ;
+
         this.selectField = [];
         this.fromField = [];
         this.whereField = [];
@@ -7,6 +9,7 @@ class QueryBuilder {
         this.firstTable = '';
         this.limit = null;
         this.offset = null;
+        this.datastore = datastore;
     }
 
     addSelect(value) {
@@ -68,7 +71,7 @@ class QueryBuilder {
                 }
                 else if (typeof select === 'object') {
                     selectString = `${select.tableName}."${select.columnName}"`;
-                    if (select.columnAlias) selectString += ` AS ${select.columnAlias}`;
+                    if (select.columnAlias) selectString += ` AS "${select.columnAlias}"`;
                 }
 
                 if (index === this.selectField.length - 1) {
@@ -140,8 +143,14 @@ class QueryBuilder {
         }
 
         if (this.limit && this.offset) {
-            queryString += `LIMIT ${this.limit} `;
-            if (this.offset) queryString += `OFFSET ${this.offset} `;
+            if (this.datastore === 'postgresql') {
+                queryString += `LIMIT ${this.limit} `;
+                queryString += `OFFSET ${this.offset} `;
+            }
+            else if (this.datastore === 'sqlserver') {
+                queryString += `OFFSET ${this.offset} ROWS `;
+                queryString += `FETCH NEXT ${this.limit} ROWS ONLY `;
+            }
         }
 
         queryString = queryString.trim();

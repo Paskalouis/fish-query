@@ -18,7 +18,11 @@ Yarn:
 ```javascript
 const QueryBuilder = require('fish-query');
 
-const queryClass = new QueryBuilder();
+const config = {
+	datastore: 'postgresql'	//Currently support 'postgresql' and 'sqlserver'. Default to 'postgresql' when not specified.
+};
+
+const queryClass = new QueryBuilder(config);
 
 let queryString = queryClass
                     .addSelect('firstName')
