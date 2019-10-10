@@ -109,14 +109,18 @@ class QueryBuilder {
                     whereString = where.column;
                 }
                 else if (typeof where.column === 'object') {
-                    whereString = `${where.column.tableName}."${where.column.columnName}"`
+                    if (where.column.columnType === "string" && !where.caseSensitive) {
+                        whereString = `LOWER (${where.column.tableName}."${where.column.columnName}") ${where.operator} LOWER ('${where.value}')`
+                    }
+                    else {
+                        whereString = `${where.column.tableName}."${where.column.columnName}" ${where.operator} '${where.value}'`
+                    }
                 }
-
-                if (index === this.whereField.length - 1) {
-                    queryString += `${whereString} ${where.operator} '${where.value}' `;
+                if (index < this.whereField.length - 1) {
+                    queryString += `${whereString} AND `;
                 }
                 else {
-                    queryString += `${whereString} ${where.operator} '${where.value}' AND `;
+                    queryString += `${whereString} `;
                 }
             });
         }
