@@ -106,7 +106,12 @@ class QueryBuilder {
                 let whereString = '';
 
                 if (typeof where.column === 'string') {
-                    whereString = where.column;
+                    if (typeof where.value === 'string') {
+                        whereString = `${where.column} ${where.operator} '${where.value}'`;
+                    }
+                    else {
+                        whereString = `${where.column} ${where.operator} ${where.value}`;
+                    }
                 }
                 else if (typeof where.column === 'object') {
                     if (where.column.columnType === "string" && !where.caseSensitive) {

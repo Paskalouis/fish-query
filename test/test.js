@@ -171,4 +171,23 @@ describe('Query String Builder', function () {
             .generateQuery();
         expect(queryString).to.equal(`SELECT firstName FROM user WHERE firstName = 'Agung' AND lastName = 'Hercules';`);
     });
+
+    it(`Test 9. Test with multiple where (2), operator is 'greater than' and value is an 'integer'`, function() {
+        let queryClass = new QueryBuilder;
+        let queryString = queryClass
+            .addSelect('firstName')
+            .setFirstTable('user')
+            .addWhere({
+                column: 'age',
+                operator: '>',
+                value: 25
+            })
+            .addWhere({
+                column: 'status',
+                operator: '=',
+                value: 'Single'
+            })
+            .generateQuery();
+        expect(queryString).to.equal(`SELECT firstName FROM user WHERE age > 25 AND status = 'Single';`);
+    })
 });
