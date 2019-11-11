@@ -157,8 +157,8 @@ class QueryBuilder {
                 queryString += `OFFSET ${this.offset} `;
             }
             else if (this.datastore === 'sqlserver') {
-                queryString += `OFFSET ${this.offset} ROWS `;
                 queryString += `FETCH NEXT ${this.limit} ROWS ONLY `;
+                queryString += `OFFSET ${this.offset} ROWS `;
             }
         }
 
