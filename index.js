@@ -106,17 +106,26 @@ class QueryBuilder {
                 let whereString = '';
 
                 if (typeof where.column === 'string') {
-                    whereString = where.column;
+                    if (typeof where.value === 'string') {
+                        whereString = `${where.column} ${where.operator} '${where.value}'`;
+                    }
+                    else {
+                        whereString = `${where.column} ${where.operator} ${where.value}`;
+                    }
                 }
                 else if (typeof where.column === 'object') {
-                    whereString = `${where.column.tableName}."${where.column.columnName}"`
+                    if (where.column.columnType === "string" && !where.caseSensitive) {
+                        whereString = `LOWER (${where.column.tableName}."${where.column.columnName}") ${where.operator} LOWER ('${where.value}')`
+                    }
+                    else {
+                        whereString = `${where.column.tableName}."${where.column.columnName}" ${where.operator} '${where.value}'`
+                    }
                 }
-
-                if (index === this.whereField.length - 1) {
-                    queryString += `${whereString} ${where.operator} '${where.value}' `;
+                if (index < this.whereField.length - 1) {
+                    queryString += `${whereString} AND `;
                 }
                 else {
-                    queryString += `${whereString} ${where.operator} '${where.value}' AND `;
+                    queryString += `${whereString} `;
                 }
             });
         }
@@ -148,8 +157,8 @@ class QueryBuilder {
                 queryString += `OFFSET ${this.offset} `;
             }
             else if (this.datastore === 'sqlserver') {
-                queryString += `OFFSET ${this.offset} ROWS `;
                 queryString += `FETCH NEXT ${this.limit} ROWS ONLY `;
+                queryString += `OFFSET ${this.offset} ROWS `;
             }
         }
 
